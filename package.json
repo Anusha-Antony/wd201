@@ -1,0 +1,24 @@
+{
+  "name": "wd201",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anusha-Antony/wd201.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anusha-Antony/wd201/issues"
+  },
+  "homepage": "https://github.com/Anusha-Antony/wd201#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  },
+  "description": ""
+}
