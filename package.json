@@ -2,7 +2,6 @@
   "name": "wd201",
   "version": "1.0.0",
   "main": "index.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
@@ -19,7 +18,8 @@
   },
   "homepage": "https://github.com/Anusha-Antony/wd201#readme",
   "devDependencies": {
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "sequelize-cli": "^6.6.3"
   },
   "description": "",
   "dependencies": {
@@ -27,5 +27,4 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7"
   }
-  
 }
