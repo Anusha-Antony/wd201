@@ -1,61 +1,124 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Todo extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static async addTask(params) {
-      return await Todo.create(params);
-    }
-    static async showList() {
-      console.log("My Todo list \n");
+/* eslint-disable no-undef */
+const todoList = () => {
+  all = [];
+  const add = (todoItem) => {
+    all.push(todoItem);
+  };
+  const markAsComplete = (index) => {
+    all[index].completed = true;
+  };
 
-      console.log("Overdue");
-      // FILL IN HERE
-      console.log("\n");
+  const overdue = () => {
+    // Write the date check condition here and return the array
+    // of overdue items accordingly.
+    let od = [];
+    all.map((item) => {
+      if (item.dueDate < today) {
+        od.push(item);
+      }
+    });
+    return od;
+  };
 
-      console.log("Due Today");
-      // FILL IN HERE
-      console.log("\n");
+  const dueToday = () => {
+    // Write the date check condition here and return the array
+    // of todo items that are due today accordingly.
+    let dt = [];
+    all.map((item) => {
+      if (item.dueDate == today) {
+        dt.push(item);
+      }
+    });
+    return dt;
+  };
 
-      console.log("Due Later");
-      // FILL IN HERE
-    }
+  const dueLater = () => {
+    // Write the date check condition here and return the array
+    // of todo items that are due later accordingly.
+    let dl = [];
+    all.map((item) => {
+      if (item.dueDate > today) {
+        dl.push(item);
+      }
+    });
+    return dl;
+  };
 
-    static async overdue() {
-      // FILL IN HERE TO RETURN OVERDUE ITEMS
-    }
+  const toDisplayableList = (list) => {
+    // Format the To-Do list here, and return the output string
+    // as per the format given above.
+    let op = "";
+    let x = "";
+    let od = "";
 
-    static async dueToday() {
-      // FILL IN HERE TO RETURN ITEMS DUE tODAY
-    }
+    list.map((item, index) => {
+      if (item.completed == true) x = "[x]";
+      else x = "[ ]";
 
-    static async dueLater() {
-      // FILL IN HERE TO RETURN ITEMS DUE LATER
-    }
+      if (item.dueDate == today) od = `${x} ${item.title}`;
+      else od = `${x} ${item.title} ${item.dueDate}`;
 
-    static async markAsComplete(id) {
-      // FILL IN HERE TO MARK AN ITEM AS COMPLETE
+      if (index != list.length - 1) od = od + "\n";
 
-    }
+      op = op + od;
+    });
+    return op;
+  };
 
-    displayableString() {
-      let checkbox = this.completed ? "[x]" : "[ ]";
-      return `${this.id}. ${checkbox} ${this.title} ${this.dueDate}`;
-    }
-  }
-  Todo.init({
-    title: DataTypes.STRING,
-    dueDate: DataTypes.DATEONLY,
-    completed: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'Todo',
-  });
-  return Todo;
+  return {
+    all,
+    add,
+    markAsComplete,
+    overdue,
+    dueToday,
+    dueLater,
+    toDisplayableList,
+  };
 };
+
+// ####################################### #
+// DO NOT CHANGE ANYTHING BELOW THIS LINE. #
+// ####################################### #
+
+const todos = todoList();
+
+const formattedDate = (d) => {
+  return d.toISOString().split("T")[0];
+};
+
+var dateToday = new Date();
+const today = formattedDate(dateToday);
+const yesterday = formattedDate(
+  new Date(new Date().setDate(dateToday.getDate() - 1)),
+);
+const tomorrow = formattedDate(
+  new Date(new Date().setDate(dateToday.getDate() + 1)),
+);
+
+todos.add({ title: "Submit assignment", dueDate: yesterday, completed: false });
+todos.add({ title: "Pay rent", dueDate: today, completed: true });
+todos.add({ title: "Service Vehicle", dueDate: today, completed: false });
+todos.add({ title: "File taxes", dueDate: tomorrow, completed: false });
+todos.add({ title: "Pay electric bill", dueDate: tomorrow, completed: false });
+
+console.log("My Todo-list\n");
+
+console.log("Overdue");
+var overdues = todos.overdue();
+var formattedOverdues = todos.toDisplayableList(overdues);
+console.log(formattedOverdues);
+console.log("\n");
+
+console.log("Due Today");
+let itemsDueToday = todos.dueToday();
+let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday);
+console.log(formattedItemsDueToday);
+console.log("\n");
+
+console.log("Due Later");
+let itemsDueLater = todos.dueLater();
+let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
+console.log(formattedItemsDueLater);
+console.log("\n\n");
+
+module.exports = todoList;
