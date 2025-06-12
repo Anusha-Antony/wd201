@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* eslint-disable no-undef */
 const todoList = require("../todo");
 const { all, markAsComplete, add, overdue, dueToday, dueLater } = todoList();
@@ -17,7 +16,7 @@ describe("Todo suite", () => {
     all.length = 0;
   });
 
-  test("Add test", () => {
+  test("should add new todo", () => {
     add({
       title: "Submit assignment",
       dueDate: today,
@@ -79,10 +78,5 @@ describe("Todo suite", () => {
     expect(items.length).toBe(1);
     expect(items[0].title).toBe("Future task");
     expect(items[0].dueDate).toBe(tomorrow);
-=======
-describe("Sample test", () => {
-  test("true is true", () => {
-    expect(true).toBe(true);
->>>>>>> bc37d07 (Moved .husky to todo-cli folder and updated pre-commit hook)
   });
 });
