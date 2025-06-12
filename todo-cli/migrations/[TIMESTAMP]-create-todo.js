@@ -1,36 +1,35 @@
-'use strict';
-
+/* eslint-disable no-unused-vars */
+"use strict";
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    // Define what happens when running the migration, e.g., creating a table
-    await queryInterface.createTable('Todos', {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("Todos", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      task: {
+      title: {
         type: Sequelize.STRING,
-        allowNull: false
+      },
+      dueDate: {
+        type: Sequelize.DATEONLY,
       },
       completed: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-
-  down: async (queryInterface, Sequelize) => {
-    // Define what happens when reverting the migration, e.g., dropping the table
-    await queryInterface.dropTable('Todos');
-  }
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("Todos");
+  },
 };
